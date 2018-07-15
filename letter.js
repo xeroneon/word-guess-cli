@@ -1,15 +1,15 @@
 function Letter(letter) {
     this.letter = letter;
-    this.placeholder = "_";
+    this.placeholder = "*";
     this.isGuessed = false;
 }
 
 Letter.prototype.returnChar = function() {
-    return this.letter;
-}
-
-Letter.prototype.returnPlace = function() {
-    return this.placeholder;
+    if (this.isGuessed === true || this.letter === " ") {
+        return this.letter;
+    }else {
+        return this.placeholder;
+    }
 }
 
 module.exports = Letter;
