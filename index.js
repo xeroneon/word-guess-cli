@@ -2,18 +2,21 @@ const Word = require("./word.js");
 
 const inquirer = require("inquirer");
 
-const wordArr = ["prototpye", "nodejs", "mongo", "somethihng", "another thing"];
+const wordArr = ["prototype", "nodejs", "mongodb", "mysql", "cascading style sheets", "python", "javascript", "firebase", "youll never guess what this sentence says in a million zillion years"];
 
 let r = Math.floor(Math.random() * wordArr.length);
 
 let currentWord = new Word(wordArr[r]);
 
-
+let guesses = 10;
+let wins = 0;
+let losses = 0;
 
 // console.log(currentWord);
 
 function playGame() {
-    console.log("try to guess the word\n");
+    console.log("\nWins: " + wins + "    Losses: " + losses + " Guesses: " + guesses + "\n" )
+    console.log("Try to guess the word\n");
     currentWord.printWord();
 
     inquirer.prompt([
@@ -23,16 +26,29 @@ function playGame() {
             name: "userLetter"
         }
     ]).then(function (response) {
-        currentWord.guessLetter(response.userLetter);
+        currentWord.guessLetter(response.userLetter.toLowerCase());
         let trueCount = 0;
+        let falseCount = 0;
 
         for (let i = 0; i < currentWord.letters.length; i++) {
             if (currentWord.letters[i].isGuessed === true) {
                 trueCount++
             }
+
+            if(response.userLetter != currentWord.letters[i].letter) {
+                falseCount++;
+            }
         }
 
-        if (trueCount < currentWord.letters.length) {
+        if (falseCount === currentWord.letters.length) {
+            guesses--;
+        }
+
+        if (guesses === 0) {
+            console.log("\nYou lost the word was " + currentWord.word);
+        }
+
+        else if (trueCount < currentWord.letters.length) {
             trueCount = 0;
             playGame();
         } else {
@@ -40,7 +56,7 @@ function playGame() {
             inquirer.prompt([
                 {
                     type: "confirm",
-                    message: "Would you like to play again?",
+                    message: "\nWould you like to play again?",
                     name: "playAgain"
                 }
             ]).then(function (response) {
@@ -50,6 +66,8 @@ function playGame() {
                     currentWord = new Word(wordArr[r]);
     
                     playGame();
+                } else {
+                    console.log("\nOkay we can play again another time.")
                 }
             })
         }

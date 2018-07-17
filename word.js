@@ -1,6 +1,7 @@
 const Letter = require("./letter.js");
 
 function Word(word) {
+    this.word = word;
     this.letters = [];
     word = word.split("");
     for (let i = 0; i < word.length; i++) {
@@ -13,7 +14,7 @@ Word.prototype.printWord = function() {
     for (let i = 0; i < this.letters.length; i++) {
         word += this.letters[i].returnChar();
     }
-    console.log("word: ", word);
+    console.log("word: ", word + "\n");
     
 }
 
