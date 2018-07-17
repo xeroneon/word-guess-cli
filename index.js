@@ -8,6 +8,8 @@ let r = Math.floor(Math.random() * wordArr.length);
 
 let currentWord = new Word(wordArr[r]);
 
+
+
 // console.log(currentWord);
 
 function playGame() {
@@ -42,11 +44,13 @@ function playGame() {
                     name: "playAgain"
                 }
             ]).then(function (response) {
-                r = Math.floor(Math.random() * wordArr.length);
-
-                currentWord = new Word(wordArr[r]);
-
-                playGame();
+                if (response.playAgain === true) {
+                    r = Math.floor(Math.random() * wordArr.length);
+    
+                    currentWord = new Word(wordArr[r]);
+    
+                    playGame();
+                }
             })
         }
 

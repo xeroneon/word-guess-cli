@@ -19,7 +19,7 @@ Word.prototype.printWord = function() {
 
 Word.prototype.guessLetter = function(letter) {
     for (let i = 0; i < this.letters.length; i++) {
-        if (this.letters[i].letter === letter) {
+        if (this.letters[i].letter === letter || this.letters[i].letter === " ") {
             this.letters[i].isGuessed = true;
         }
     }
