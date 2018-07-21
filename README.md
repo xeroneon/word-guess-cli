@@ -1,6 +1,6 @@
 # word-guess-cli
 
-This apllication uses object constructors to create a simple word guessing game
+This application uses object constructors to create a simple word guessing game
 
 ## Getting Started
 
